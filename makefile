@@ -11,9 +11,11 @@ EXECUTABLE=shell
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
+	mkdir -p build
 	$(CC) -o $(BUILDDIR)/$@ $^
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
+	mkdir -p obj
 	$(CC) -c -o $@ $<
 
 permissions:
