@@ -12,3 +12,5 @@ Fri Jan 20 18:17:41 2023
  -ps 
 Fri Jan 20 18:18:05 2023
 - echo hello make m3a 17
+Fri Jan 20 19:35:55 2023
+- ls

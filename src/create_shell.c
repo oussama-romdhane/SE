@@ -39,15 +39,18 @@ void create_shell(void) {
       char **args = splitline(cmd, " ");
       chdir(args[1]);
     } else if (strcmp(cmd, "help") == 0) {
-      printf("     //////////     \n");
-      printf("\nOussema Romdhane and Anaghim Ben Souissi's Shell\n");
-      printf("Type program names and arguments, and hit enter.\n");
-      printf("The following commands are built in:\n");
-      printf("cd: navigate to different directory\n");
-      printf("help: display built in command names\n");
-      printf("history: display previous commands history\n");
-      printf("quit: close the shell: \n");
-      printf("\n     //////////     \n");
+      printf(
+          "¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤ Command line interpreter ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤\n\n");
+      printf("¤ Made by : Oussema Romdhane and Anaghim Ben Souissi \n");
+      printf("¤ The following commands are built in:\n");
+      printf("     \033[0;31mcd\033[0;37m : navigate to different directory\n");
+      printf(
+          "     \033[0;31mhelp\033[0;37m : display built in command names\n");
+      printf("     \033[0;31mhistory\033[0;37m : display previous commands "
+             "history\n");
+      printf("     \033[0;31mquit\033[0;37m : close the shell \n\n");
+      printf(
+          "¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤\n");
     } else if (strcmp(cmd, "history") == 0) {
       char *args[3];
       int pid;

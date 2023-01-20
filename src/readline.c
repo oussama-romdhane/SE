@@ -16,7 +16,7 @@ char *readline() {
     }
   }
 
-  while (line[position] != NULL) {
+  while (line[position] != '\0') {
     position++;
   }
   line[position - 1] = '\0';
