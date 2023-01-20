@@ -10,7 +10,7 @@ char **splitline(char *line, char *delim) {
   char *token;
 
   if (!tokens) {
-    fprintf(stderr, "lsh: allocation error\n");
+    printf("Allocation error\n");
     exit(EXIT_SUCCESS);
   }
 
@@ -24,7 +24,7 @@ char **splitline(char *line, char *delim) {
       bufferSize += TOKEN_BUFFER_SIZE;
       tokens = realloc(tokens, bufferSize * sizeof(char *));
       if (!tokens) {
-        fprintf(stderr, "lsh: allocation error\n");
+        printf("Allocation error\n");
         exit(EXIT_SUCCESS);
       }
     }

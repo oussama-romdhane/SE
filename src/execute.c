@@ -13,21 +13,19 @@ int execute(char *cmd) {
 
   pid = fork();
   if (pid == 0) {
-    // Child process
     if (execvp(args[0], args) == -1) {
-      perror("error execute");
+      printf("Error executing the command\n");
       exit(9);
     }
     exit(0);
   } else if (pid < 0) {
-    // Error forking
-    perror("error fork");
+    printf("Error creating subprocess\n");
   } else {
-    // Parent process
     do {
       wpid = waitpid(pid, &status, 0);
     } while (!WIFEXITED(status) && !WIFSIGNALED(status));
   }
+
   return 1;
 }
 
@@ -43,17 +41,17 @@ int execute_and(char **commands) {
     pid = fork();
 
     if (pid == 0) {
-      // Child process
+
       if (execvp(args[0], args) == -1) {
-        perror("error and");
+        printf("Error executing the command\n");
         exit(9);
       }
       exit(0);
     } else if (pid < 0) {
-      // Error forking
-      perror("error fork and");
+
+      printf("Error creating subprocess\n");
     } else {
-      // Parent process
+
       do {
         wpid = waitpid(pid, &status, 0);
       } while (!WIFEXITED(status) && !WIFSIGNALED(status));
@@ -79,17 +77,16 @@ int execute_or(char **commands) {
 
     pid = fork();
     if (pid == 0) {
-      // Child process
+
       if (execvp(args[0], args) == -1) {
-        perror("error or");
+        printf("Error executing the command\n");
         exit(9);
       }
       exit(0);
     } else if (pid < 0) {
-      // Error forking
-      perror("error fork or");
+      printf("Error creating subprocess\n");
     } else {
-      // Parent process
+
       do {
         wpid = waitpid(pid, &status, 0);
       } while (!WIFEXITED(status) && !WIFSIGNALED(status));
@@ -112,17 +109,17 @@ int execute_wait(char **commands) {
 
     pid = fork();
     if (pid == 0) {
-      // Child process
+
       if (execvp(args[0], args) == -1) {
-        perror("error wait");
+        printf("Error executing the command\n");
         exit(9);
       }
       exit(0);
     } else if (pid < 0) {
-      // Error forking
-      perror("error fork wait");
+
+      printf("Error creating subprocess\n");
     } else {
-      // Parent process
+
       do {
         wpid = waitpid(pid, &status, 0);
       } while (!WIFEXITED(status) && !WIFSIGNALED(status));
@@ -141,37 +138,32 @@ int execute_pipe(char **commands) {
   char **parsedPipe = splitline(commands[1], " ");
 
   if (pipe(pipefd) < 0) {
-    printf("\nPipe could not be initialized");
+    printf("Pipe could not be initialized\n");
     return 0;
   }
 
   p1 = fork();
   if (p1 < 0) {
-    printf("\nCould not fork");
+    printf("Error creating subprocess\n");
     return 0;
   }
 
   if (p1 == 0) {
-    // Child 1 executing..
-    // It only needs to write at the write end
     close(pipefd[0]);
     dup2(pipefd[1], STDOUT_FILENO);
     close(pipefd[1]);
     if (execvp(parsed[0], parsed) < 0) {
-      printf("\nCould not execute command 1..");
+      printf("Error executing the first command\n");
       exit(0);
     }
   } else {
-    // Parent executing
     p2 = fork();
 
     if (p2 < 0) {
-      printf("\nCould not fork");
+      printf("Error creating subprocess\n");
       return 0;
     }
 
-    // Child 2 executing..
-    // It only needs to read at the read end
     if (p2 == 0) {
 
       close(pipefd[1]);
@@ -179,7 +171,7 @@ int execute_pipe(char **commands) {
       close(pipefd[0]);
 
       if (execvp(parsedPipe[0], parsedPipe) < 0) {
-        printf("\nCould not execute command 2..");
+        printf("Error executing the second command\n");
         exit(0);
       }
     } else {
@@ -190,13 +182,7 @@ int execute_pipe(char **commands) {
       wait(NULL);
     }
   }
-  /*else {
-    // Parent process
-    do {
-      wpid = waitpid(pid, &status, 0);
-    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-  }
-*/
+
   return 1;
 }
 
@@ -208,22 +194,21 @@ int execute_redirect(char **commands) {
   int file = open(parsedRedirect, O_WRONLY | O_CREAT, 0777);
 
   if (file == -1) {
-    printf("Could not create file\n");
+    printf("Error creating file\n");
     return 0;
   }
 
   p1 = fork();
   if (p1 < 0) {
-    printf("\nCould not fork");
+    printf("Error creating subprocess\n");
     return 0;
   }
 
   if (p1 == 0) {
-
     dup2(file, STDOUT_FILENO);
     close(file);
     if (execvp(parsed[0], parsed) < 0) {
-      printf("\nCould not execute command 1..");
+      printf("Could not execute the first command\n");
       exit(0);
     }
   } else {

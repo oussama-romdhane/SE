@@ -1,6 +1,4 @@
-
 #include "create_shell.h"
-#include "removeWhitespace.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

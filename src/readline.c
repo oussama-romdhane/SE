@@ -5,13 +5,13 @@
 
 char *readline() {
   char *line = NULL;
-  ssize_t len = 0; // have getline allocate a buffer for us
+  size_t len = 0;
   int position = 0;
   if (getline(&line, &len, stdin) == -1) {
     if (feof(stdin)) {
-      exit(EXIT_SUCCESS); // We recieved an EOF
+      exit(EXIT_SUCCESS);
     } else {
-      perror("readline");
+      printf("Error reading input line\n");
       exit(EXIT_FAILURE);
     }
   }
