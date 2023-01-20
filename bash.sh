@@ -1,3 +1,4 @@
-echo mara
-ls -l | grep x
-ls || ps
+echo this is a batch file
+ps ; ls
+pwd || ls
+echo first && echo second
