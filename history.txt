@@ -1,5 +1,14 @@
-echo ghello > kgeznfgez
-ls
-ps
-echo > hello.txt
-echo ahla anaghim> ahla.txt
+Fri Jan 20 18:15:07 2023
+ : echo tawa tawa
+Fri Jan 20 18:15:38 2023
+ - hello wiw
+Fri Jan 20 18:15:38 2023
+ - hello wiw
+Fri Jan 20 18:15:40 2023
+ - echo hello
+Fri Jan 20 18:17:39 2023
+ -echo hello
+Fri Jan 20 18:17:41 2023
+ -ps 
+Fri Jan 20 18:18:05 2023
+- echo hello make m3a 17

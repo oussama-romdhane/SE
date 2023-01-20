@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <unistd.h>
 
 void create_shell(void) {
@@ -11,6 +12,12 @@ void create_shell(void) {
   FILE *history;
 
   do {
+    time_t rawtime;
+    struct tm *timeinfo;
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
     history = fopen("history.txt", "a+");
 
     char cwd[256];
@@ -84,7 +91,7 @@ void create_shell(void) {
         }
       }
     } else {
-      fprintf(history, "%s\n", cmd);
+      fprintf(history, "%s- %s\n", asctime(timeinfo), cmd);
       execute_multiple(cmd);
       fclose(history);
     }
